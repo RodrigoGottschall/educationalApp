@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface Student {
   picture: { large: string };
@@ -61,7 +62,7 @@ const HomeScreen: React.FC = () => {
         <Text style={styles.name}>{item.name.first} {item.name.last}</Text>
         <View style={styles.infoRow}>
           <Text style={styles.info}>{item.gender}</Text>
-          <View style={{ width: 100 }} />
+          <View style={{ flex: 1 }} />
           <Text style={styles.info}>{new Date(item.dob.date).toLocaleDateString()}</Text>
         </View>
       </View>
@@ -72,16 +73,18 @@ const HomeScreen: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>InnovateTech</Text>
-        <View style={styles.searchContainer}>
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Busca..."
-            onChangeText={setSearchQuery}
-            value={searchQuery}
-          />
-            <Text style={styles.icon}>👤</Text> 
-          <TouchableOpacity style={styles.iconButton}>
-          </TouchableOpacity>
+        <View style={styles.searchContainerOuter}>
+          <View style={styles.searchContainer}>
+            <TextInput
+              style={styles.searchInput}
+              placeholder="Busca..."
+              onChangeText={setSearchQuery}
+              value={searchQuery}
+            />
+            <View style={styles.searchIconContainer}>
+              <Icon name="user" size={20} color="#999" />
+            </View>
+          </View>
           <TouchableOpacity style={styles.iconButton}>
             <Text style={styles.icon}>🔍</Text> 
           </TouchableOpacity>
@@ -136,15 +139,23 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    marginRight: 10,
+    maxWidth: '80%',
+  },
+  searchContainerOuter: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   searchInput: {
     flex: 1,
     height: 40,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
     padding: 10,
-    marginRight: 10,
+  },
+  searchIconContainer: {
+    paddingHorizontal: 10,  
   },
   iconButton: {
     padding: 10,
