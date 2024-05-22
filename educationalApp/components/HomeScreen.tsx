@@ -13,6 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Footer from './Footer';
 
 export interface Student {
   picture: { large: string };
@@ -93,7 +94,6 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>InnovateTech</Text>
@@ -144,9 +144,9 @@ const HomeScreen: React.FC = () => {
           student={selectedStudent}
           isVisible={isModalVisible}
           onClose={closeModal}
-        /> 
+        />
+        <Footer/>
       </View>
-    </GestureHandlerRootView>
   );
 };
 

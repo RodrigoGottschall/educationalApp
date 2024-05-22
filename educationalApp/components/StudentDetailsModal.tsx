@@ -1,11 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Student } from './HomeScreen';
 
@@ -28,10 +22,10 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ student, isVi
   }, [isVisible]);
 
   return (
-    
-      <Modalize ref={modalizeRef} adjustToContentHeight={true} onClosed={onClose}>
-        <View style={styles.modalContainer}>
-          <Image source={{ uri: student.picture.large }} style={styles.modalAvatar} />
+    <Modalize ref={modalizeRef} adjustToContentHeight={true} onClosed={onClose}>
+      <View style={styles.contentContainer}> 
+        <Image source={{ uri: student.picture.large }} style={styles.modalAvatar} />
+        <View style={styles.modalContainer}> 
           <Text style={styles.modalName}>{student.name.first} {student.name.last}</Text>
           <Text style={styles.modalInfo}>Email: {student.email}</Text>
           <Text style={styles.modalInfo}>Gênero: {student.gender}</Text>
@@ -46,23 +40,31 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ student, isVi
             <Text style={styles.closeButtonText}>Fechar</Text>
           </TouchableOpacity>
         </View>
-      </Modalize>
-    
+      </View>
+    </Modalize>
   );
 };
 
 const styles = StyleSheet.create({
-  modalContainer: {
+  contentContainer: {
+    paddingTop: 50, 
     backgroundColor: '#fff',
-    padding: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '100%', 
+    padding: 20,
+  },
+  imageContainer: { 
+    alignItems: 'center',
+    marginBottom: 10,
   },
   modalAvatar: {
     width: 100,
     height: 100,
     borderRadius: 50,
-    marginBottom: 10,
   },
   modalName: {
     fontSize: 20,
@@ -86,4 +88,3 @@ const styles = StyleSheet.create({
 });
 
 export default StudentDetailsModal;
-
