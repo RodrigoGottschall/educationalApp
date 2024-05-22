@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Modal, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Student } from './HomeScreen';
 
 interface StudentDetailsModalProps {
   student: Student | null;
