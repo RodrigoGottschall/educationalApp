@@ -86,7 +86,9 @@ const HomeScreen: React.FC = () => {
             </View>
           </View>
           <TouchableOpacity style={styles.iconButton}>
-            <Text style={styles.icon}>🔍</Text> 
+          <View style={styles.searchIconContainer}>
+              <Icon name="filter" size={30} color="#999" />
+            </View> 
           </TouchableOpacity>
         </View>
       </View>
@@ -125,8 +127,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    backgroundColor: '#f0f0f5',
+    backgroundColor: '#fff',
     padding: 20,
+    paddingTop: 50,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
   },
