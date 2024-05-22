@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <View style={styles.footer}>
       <TouchableOpacity style={styles.iconButton}>
-        <Icon name="bell" size={24} color="#333" />
+        <Icon name="fort-awesome" size={24} color="#333" />
       </TouchableOpacity>
     </View>
   );
