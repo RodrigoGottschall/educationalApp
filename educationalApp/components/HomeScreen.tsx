@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export interface Student {
   picture: { large: string };
@@ -92,58 +93,60 @@ const HomeScreen: React.FC = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>InnovateTech</Text>
-        <View style={styles.searchContainerOuter}> 
-          <View style={styles.searchContainer}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Busca..."
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-            />
-            <View style={styles.searchIconContainer}>
-              <Icon name="user" size={20} color="#999" />
-            </View>
-          </View>
-          <TouchableOpacity style={styles.iconButton}>
-            <Icon name="search" size={20} color="#999" /> 
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {isLoading && page === 1 ? (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#007AFF" />
-        </View>
-      ) : (
-        <FlatList
-          key={numColumns.toString()}
-          data={filteredStudents}
-          numColumns={numColumns}
-          keyExtractor={(item) => item.dob.date}
-          contentContainerStyle={styles.cardList}
-          renderItem={renderItem}
-          onEndReached={handleEndReached}
-          onEndReachedThreshold={0.5}
-          ListFooterComponent={() =>
-            isLoading && page > 1 ? (
-              <View style={styles.loadingMoreContainer}>
-                <ActivityIndicator size="small" color="#007AFF" />
-                <Text style={styles.loadingMoreText}>CARREGANDO MAIS</Text>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>InnovateTech</Text>
+          <View style={styles.searchContainerOuter}> 
+            <View style={styles.searchContainer}>
+              <TextInput
+                style={styles.searchInput}
+                placeholder="Busca..."
+                onChangeText={setSearchQuery}
+                value={searchQuery}
+              />
+              <View style={styles.searchIconContainer}>
+                <Icon name="user" size={20} color="#999" />
               </View>
-            ) : null
-          }
-        />
-      )}
+            </View>
+            <TouchableOpacity style={styles.iconButton}>
+              <Icon name="search" size={20} color="#999" /> 
+            </TouchableOpacity>
+          </View>
+        </View>
 
-      <StudentDetailsModal
-        student={selectedStudent}
-        isVisible={isModalVisible}
-        onClose={closeModal}
-      />
-    </View>
+        {isLoading && page === 1 ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#007AFF" />
+          </View>
+        ) : (
+          <FlatList
+            key={numColumns.toString()}
+            data={filteredStudents}
+            numColumns={numColumns}
+            keyExtractor={(item) => item.dob.date}
+            contentContainerStyle={styles.cardList}
+            renderItem={renderItem}
+            onEndReached={handleEndReached}
+            onEndReachedThreshold={0.5}
+            ListFooterComponent={() =>
+              isLoading && page > 1 ? (
+                <View style={styles.loadingMoreContainer}>
+                  <ActivityIndicator size="small" color="#007AFF" />
+                  <Text style={styles.loadingMoreText}>CARREGANDO MAIS</Text>
+                </View>
+              ) : null
+            }
+          />
+        )}
+
+        <StudentDetailsModal
+          student={selectedStudent}
+          isVisible={isModalVisible}
+          onClose={closeModal}
+        /> 
+      </View>
+    </GestureHandlerRootView>
   );
 };
 

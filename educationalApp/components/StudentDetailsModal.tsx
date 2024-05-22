@@ -1,6 +1,14 @@
-import React from 'react';
-import { View, Text, Modal, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Modalize } from 'react-native-modalize';
 import { Student } from './HomeScreen';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 interface StudentDetailsModalProps {
   student: Student | null;
@@ -10,34 +18,46 @@ interface StudentDetailsModalProps {
 
 const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ student, isVisible, onClose }) => {
   if (!student) return null;
+  const modalizeRef = useRef<Modalize>(null);
+
+  useEffect(() => {
+    if (isVisible) {
+      modalizeRef.current?.open();
+    } else {
+      modalizeRef.current?.close();
+    }
+  }, [isVisible]); // Adiciona isVisible como dependência
 
   return (
-    <Modal visible={isVisible} animationType="slide" onRequestClose={onClose}>
-      <View style={styles.modalContainer}>
-        <Image source={{ uri: student.picture.large }} style={styles.modalAvatar} />
-        <Text style={styles.modalName}>{student.name.first} {student.name.last}</Text>
-        <Text style={styles.modalInfo}>Email: {student.email}</Text>
-        <Text style={styles.modalInfo}>Gênero: {student.gender}</Text>
-        <Text style={styles.modalInfo}>Nascimento: {new Date(student.dob.date).toLocaleDateString()}</Text>
-        <Text style={styles.modalInfo}>Telefone: {student.phone}</Text>
-        <Text style={styles.modalInfo}>Nacionalidade: {student.nat}</Text>
-        <Text style={styles.modalInfo}>Endereço: {student.location.street.name}, {student.location.street.number}, {student.location.city}, {student.location.state} - {student.location.postcode}</Text>
-        <Text style={styles.modalInfo}>ID: {student.id.name} {student.id.value}</Text>
-        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Fechar</Text>
-        </TouchableOpacity>
-      </View>
-    </Modal>
+    
+      <Modalize ref={modalizeRef} adjustToContentHeight={true} onClosed={onClose}>
+        <View style={styles.modalContainer}>
+          <Image source={{ uri: student.picture.large }} style={styles.modalAvatar} />
+          <Text style={styles.modalName}>{student.name.first} {student.name.last}</Text>
+          <Text style={styles.modalInfo}>Email: {student.email}</Text>
+          <Text style={styles.modalInfo}>Gênero: {student.gender}</Text>
+          <Text style={styles.modalInfo}>Nascimento: {new Date(student.dob.date).toLocaleDateString()}</Text>
+          <Text style={styles.modalInfo}>Telefone: {student.phone}</Text>
+          <Text style={styles.modalInfo}>Nacionalidade: {student.nat}</Text>
+          <Text style={styles.modalInfo}>
+            Endereço: {student.location.street.name}, {student.location.street.number}, {student.location.city}, {student.location.state} - {student.location.postcode}
+          </Text>
+          <Text style={styles.modalInfo}>ID: {student.id.name} {student.id.value}</Text>
+          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+            <Text style={styles.closeButtonText}>Fechar</Text>
+          </TouchableOpacity>
+        </View>
+      </Modalize>
+    
   );
 };
 
 const styles = StyleSheet.create({
   modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
     backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   modalAvatar: {
     width: 100,
@@ -67,3 +87,4 @@ const styles = StyleSheet.create({
 });
 
 export default StudentDetailsModal;
+
