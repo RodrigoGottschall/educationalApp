@@ -52,15 +52,18 @@ const HomeScreen: React.FC = () => {
 
   const numColumns = 1;
   const { width } = Dimensions.get('window');
-  const cardWidth = (width - 40 - 10) / numColumns; // 40 de padding horizontal, 10 de margin entre cards
+  const cardWidth = (width - 40 - 10) / numColumns;
 
   const renderItem = ({ item }: { item: Student }) => (
     <View style={[styles.card, { width: cardWidth }]}>
       <Image source={{ uri: item.picture.large }} style={styles.avatar} />
       <View style={styles.cardContent}>
         <Text style={styles.name}>{item.name.first} {item.name.last}</Text>
-        <Text style={styles.info}>{item.gender}</Text>
-        <Text style={styles.info}>{new Date(item.dob.date).toLocaleDateString()}</Text>
+        <View style={styles.infoRow}>
+          <Text style={styles.info}>{item.gender}</Text>
+          <View style={{ width: 100 }} />
+          <Text style={styles.info}>{new Date(item.dob.date).toLocaleDateString()}</Text>
+        </View>
       </View>
     </View>
   );
@@ -76,8 +79,8 @@ const HomeScreen: React.FC = () => {
             onChangeText={setSearchQuery}
             value={searchQuery}
           />
-          <TouchableOpacity style={styles.iconButton}>
             <Text style={styles.icon}>👤</Text> 
+          <TouchableOpacity style={styles.iconButton}>
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton}>
             <Text style={styles.icon}>🔍</Text> 
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    flexDirection: 'row', // Alinha os elementos em linha
+    flexDirection: 'row', 
     marginHorizontal: 5,
     marginBottom: 10,
     backgroundColor: '#fff',
@@ -176,10 +179,16 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    marginRight: 15, // Adiciona um espaçamento à direita do avatar
+    marginRight: 15, 
   },
   cardContent: {
-    justifyContent: 'center', // Alinha os elementos verticalmente
+    flex: 1,
+    justifyContent: 'center', 
+  },
+  infoRow: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    marginTop: 10, 
   },
   name: {
     fontWeight: 'bold',
