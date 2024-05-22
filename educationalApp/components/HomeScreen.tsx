@@ -11,13 +11,23 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Footer from './Footer';
+import StudentDetailsModal from './StudentDetailsModal';
 
-interface Student {
+export interface Student {
   picture: { large: string };
   name: { first: string; last: string };
   gender: string;
   dob: { date: string };
+  email: string;
+  phone: string;
+  nat: string;
+  location: {
+    street: { name: string; number: number };
+    city: string;
+    state: string;
+    postcode: string;
+  };
+  id: { name: string; value: string };
 }
 
 const HomeScreen: React.FC = () => {
@@ -26,6 +36,8 @@ const HomeScreen: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('');
   const [page, setPage] = useState(1);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -54,27 +66,36 @@ const HomeScreen: React.FC = () => {
 
   const numColumns = 1;
   const { width } = Dimensions.get('window');
-  const cardWidth = (width - 40 - 10) / numColumns;
+  const cardWidth = (width - 40 - 10) / numColumns; 
+
+  const handleCardPress = (student: Student) => {
+    setSelectedStudent(student);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
 
   const renderItem = ({ item }: { item: Student }) => (
-    <View style={[styles.card, { width: cardWidth }]}>
+    <TouchableOpacity onPress={() => handleCardPress(item)} style={[styles.card, { width: cardWidth }]}>
       <Image source={{ uri: item.picture.large }} style={styles.avatar} />
       <View style={styles.cardContent}>
         <Text style={styles.name}>{item.name.first} {item.name.last}</Text>
         <View style={styles.infoRow}>
           <Text style={styles.info}>{item.gender}</Text>
-          <View style={{ flex: 1 }} />
+          <View style={{ flex: 1 }} /> 
           <Text style={styles.info}>{new Date(item.dob.date).toLocaleDateString()}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>InnovateTech</Text>
-        <View style={styles.searchContainerOuter}>
+        <View style={styles.searchContainerOuter}> 
           <View style={styles.searchContainer}>
             <TextInput
               style={styles.searchInput}
@@ -87,9 +108,7 @@ const HomeScreen: React.FC = () => {
             </View>
           </View>
           <TouchableOpacity style={styles.iconButton}>
-          <View style={styles.searchIconContainer}>
-              <Icon name="filter" size={30} color="#999" />
-            </View> 
+            <Icon name="search" size={20} color="#999" /> 
           </TouchableOpacity>
         </View>
       </View>
@@ -118,7 +137,12 @@ const HomeScreen: React.FC = () => {
           }
         />
       )}
-      <Footer />
+
+      <StudentDetailsModal
+        student={selectedStudent}
+        isVisible={isModalVisible}
+        onClose={closeModal}
+      />
     </View>
   );
 };
