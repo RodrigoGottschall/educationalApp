@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Footer from './Footer';
 
 export interface Student {
@@ -106,11 +105,11 @@ const HomeScreen: React.FC = () => {
                 value={searchQuery}
               />
               <View style={styles.searchIconContainer}>
-                <Icon name="user" size={20} color="#999" />
+                <Icon name="user" size={20} color="#101010" />
               </View>
             </View>
             <TouchableOpacity style={styles.iconButton}>
-              <Icon name="search" size={20} color="#999" /> 
+              <Icon name="filter" size={20} color="#999" /> 
             </TouchableOpacity>
           </View>
         </View>
