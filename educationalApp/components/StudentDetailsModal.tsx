@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Student } from './HomeScreen';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 interface StudentDetailsModalProps {
   student: Student | null;
@@ -26,7 +25,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ student, isVi
     } else {
       modalizeRef.current?.close();
     }
-  }, [isVisible]); // Adiciona isVisible como dependência
+  }, [isVisible]);
 
   return (
     
