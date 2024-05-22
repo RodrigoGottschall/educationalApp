@@ -11,6 +11,7 @@ import {
   Dimensions,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Footer from './Footer';
 
 interface Student {
   picture: { large: string };
@@ -117,6 +118,7 @@ const HomeScreen: React.FC = () => {
           }
         />
       )}
+      <Footer />
     </View>
   );
 };
