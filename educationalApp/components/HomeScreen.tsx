@@ -8,8 +8,7 @@ import {
   Image,
   ActivityIndicator,
   TouchableOpacity,
-  Dimensions,
-  Alert,
+  Dimensions
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
@@ -262,8 +261,8 @@ const styles = StyleSheet.create({
   },
   loadingMoreContainer: {
     alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20
+    marginTop: 80,
+    marginBottom: 80
   },
   loadingMoreText: {
     marginTop: 5,
