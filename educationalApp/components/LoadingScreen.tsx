@@ -1,15 +1,34 @@
 import React from "react";
-import { View, ActivityIndicator, StyleSheet, Image } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  StyleSheet,
+  Image,
+  Alert,
+  NativeSyntheticEvent,
+  ImageErrorEventData,
+} from "react-native";
 
 interface LoadingScreenProps {
-  logoSource: any;
+  logoSource: { uri: string };
 }
 
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
+  const handleImageError = (
+    error: NativeSyntheticEvent<ImageErrorEventData>
+  ) => {
+    console.error("Erro ao carregar o logo:", error.nativeEvent.error);
+    Alert.alert("Erro", "Não foi possível carregar o logo.");
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={logoSource} style={styles.logo} />
-      <ActivityIndicator size="large" color="#007AFF" />
+      <Image
+        source={logoSource}
+        style={styles.logo}
+        onError={handleImageError}
+      />
+      <ActivityIndicator size="large" color="#758494" />
     </View>
   );
 };
