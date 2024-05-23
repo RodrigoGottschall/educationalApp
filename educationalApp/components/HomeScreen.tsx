@@ -109,7 +109,7 @@ const HomeScreen: React.FC = () => {
               </View>
             </View>
             <TouchableOpacity style={styles.iconButton}>
-              <Icon name="filter" size={20} color="#999" /> 
+              <Icon name="filter" size={30} color="#999" /> 
             </TouchableOpacity>
           </View>
         </View>
@@ -179,6 +179,7 @@ const styles = StyleSheet.create({
   searchContainerOuter: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingLeft: 5
   },
   searchInput: {
     flex: 1,
@@ -186,13 +187,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   searchIconContainer: {
-    paddingHorizontal: 10,  
+    paddingHorizontal: 20,  
   },
   iconButton: {
     padding: 10,
-  },
-  icon: {
-    fontSize: 20,
+    paddingLeft: 10,
   },
   loadingContainer: {
     flex: 1,
