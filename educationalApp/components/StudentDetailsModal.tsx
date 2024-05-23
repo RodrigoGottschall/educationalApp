@@ -36,9 +36,6 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({ student, isVi
             Endereço: {student.location.street.name}, {student.location.street.number}, {student.location.city}, {student.location.state} - {student.location.postcode}
           </Text>
           <Text style={styles.modalInfo}>ID: {student.id.name} {student.id.value}</Text>
-          <TouchableOpacity onPress={onClose} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Fechar</Text>
-          </TouchableOpacity>
         </View>
       </View>
     </Modalize>
