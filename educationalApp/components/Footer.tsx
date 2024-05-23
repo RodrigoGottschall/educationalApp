@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 const Footer: React.FC = () => {
   return (
@@ -14,16 +14,16 @@ const Footer: React.FC = () => {
 
 const styles = StyleSheet.create({
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
     padding: 15,
     borderTopWidth: 1,
-    borderTopColor: '#a7b1bb',
-    backgroundColor: '#ced8e0'
+    borderTopColor: "#a7b1bb",
+    backgroundColor: "#ced8e0",
   },
   iconButton: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   iconText: {
     fontSize: 12,
