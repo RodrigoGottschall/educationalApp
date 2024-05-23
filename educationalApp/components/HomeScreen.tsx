@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
 import Footer from './Footer';
 import FilterIconButton from './FilterIconButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export interface Student {
   picture: { large: string };
@@ -35,7 +36,7 @@ export interface Student {
 
 const HomeScreen: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState('');
   const [page, setPage] = useState(1);
@@ -44,16 +45,29 @@ const HomeScreen: React.FC = () => {
 
   useEffect(() => {
     const fetchStudents = async () => {
+      setIsLoading(true);
       try {
-        const response = await fetch(`https://randomuser.me/api/?results=20&page=${page}`);
-        const data = await response.json();
-        setStudents(prevStudents => [...prevStudents, ...data.results]);
+        const cachedStudents = await AsyncStorage.getItem('students');
+        if (cachedStudents && page === 1) {
+          setStudents(JSON.parse(cachedStudents));
+        } else {
+          const response = await fetch(`https://randomuser.me/api/?results=20&page=${page}`);
+          const data = await response.json();
+  
+          if (page === 1) {
+            await AsyncStorage.setItem('students', JSON.stringify(data.results));
+            setStudents(data.results);
+          } else {
+            setStudents(prevStudents => [...prevStudents, ...data.results]);
+          }
+        }
       } catch (error) {
         console.error('Erro ao buscar dados:', error);
       } finally {
         setIsLoading(false);
       }
     };
+  
 
     fetchStudents();
   }, [page]);
@@ -121,7 +135,7 @@ const HomeScreen: React.FC = () => {
 
         {isLoading && page === 1 ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#007AFF" />
+            <ActivityIndicator size="large" color="#758494" />
           </View>
         ) : (
           <FlatList
@@ -134,9 +148,9 @@ const HomeScreen: React.FC = () => {
             onEndReached={handleEndReached}
             onEndReachedThreshold={0.5}
             ListFooterComponent={() =>
-              isLoading && page > 1 ? (
+              isLoading ? ( 
                 <View style={styles.loadingMoreContainer}>
-                  <ActivityIndicator size="small" color="#007AFF" />
+                  <ActivityIndicator size="small" color="#758494" />
                   <Text style={styles.loadingMoreText}>CARREGANDO MAIS</Text>
                 </View>
               ) : null
@@ -249,6 +263,7 @@ const styles = StyleSheet.create({
   loadingMoreContainer: {
     alignItems: 'center',
     marginTop: 10,
+    marginBottom: 20
   },
   loadingMoreText: {
     marginTop: 5,
