@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
@@ -78,6 +79,20 @@ const HomeScreen: React.FC = () => {
     setIsModalVisible(false);
   };
 
+  const handleFilterPress = () => {
+    Alert.alert(
+      'Filtrar por Gênero',
+      '',
+      [
+        { text: 'Masculino', onPress: () => setFilter('male') },
+        { text: 'Feminino', onPress: () => setFilter('female') },
+        { text: 'Todos', onPress: () => setFilter('') },
+        { text: 'Cancelar', onPress: () => {}, style: 'cancel' },
+      ],
+      { cancelable: true }
+    );
+  };
+
   const renderItem = ({ item }: { item: Student }) => (
     <TouchableOpacity onPress={() => handleCardPress(item)} style={[styles.card, { width: cardWidth }]}>
       <Image source={{ uri: item.picture.large }} style={styles.avatar} />
@@ -96,7 +111,7 @@ const HomeScreen: React.FC = () => {
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>InnovateTech</Text>
-          <View style={styles.searchContainerOuter}> 
+          <View style={styles.searchContainerOuter}>
             <View style={styles.searchContainer}>
               <TextInput
                 style={styles.searchInput}
@@ -108,8 +123,8 @@ const HomeScreen: React.FC = () => {
                 <Icon name="user" size={20} color="#758494" />
               </View>
             </View>
-            <TouchableOpacity style={styles.iconButton}>
-              <Icon name="filter" size={30} color="#788796" /> 
+            <TouchableOpacity style={styles.iconButton} onPress={handleFilterPress}>
+              <Icon name="filter" size={30} color="#788796" />
             </TouchableOpacity>
           </View>
         </View>
