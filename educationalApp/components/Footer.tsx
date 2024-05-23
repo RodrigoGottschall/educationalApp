@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     borderTopWidth: 1,
-    borderTopColor: '#ccc',
+    borderTopColor: '#a7b1bb',
     backgroundColor: '#ced8e0'
   },
   iconButton: {
