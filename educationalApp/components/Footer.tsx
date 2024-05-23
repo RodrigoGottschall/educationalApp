@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   return (
     <View style={styles.footer}>
       <TouchableOpacity style={styles.iconButton}>
-        <Icon name="fort-awesome" size={24} color="#333" />
+        <Icon name="fort-awesome" size={24} color="#4a5d6b" />
       </TouchableOpacity>
     </View>
   );
@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
+    backgroundColor: '#ced8e0'
   },
   iconButton: {
     alignItems: 'center',

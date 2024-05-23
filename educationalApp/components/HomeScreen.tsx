@@ -105,11 +105,11 @@ const HomeScreen: React.FC = () => {
                 value={searchQuery}
               />
               <View style={styles.searchIconContainer}>
-                <Icon name="user" size={20} color="#101010" />
+                <Icon name="user" size={20} color="#758494" />
               </View>
             </View>
             <TouchableOpacity style={styles.iconButton}>
-              <Icon name="filter" size={30} color="#999" /> 
+              <Icon name="filter" size={30} color="#788796" /> 
             </TouchableOpacity>
           </View>
         </View>
