@@ -10,11 +10,11 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import StudentDetailsModal from "./StudentDetailsModal";
 import Footer from "./Footer";
 import FilterIconButton from "./FilterIconButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface Student {
   picture: { large: string };
@@ -33,6 +33,8 @@ export interface Student {
   id: { name: string; value: string };
 }
 
+const STUDENTS_PER_PAGE = 20;
+
 const HomeScreen: React.FC = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,18 +43,23 @@ const HomeScreen: React.FC = () => {
   const [page, setPage] = useState(1);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStudents = async () => {
       setIsLoading(true);
+
       try {
         const cachedStudents = await AsyncStorage.getItem("students");
         if (cachedStudents && page === 1) {
           setStudents(JSON.parse(cachedStudents));
         } else {
           const response = await fetch(
-            `https://randomuser.me/api/?results=20&page=${page}`
+            `https://randomuser.me/api/?results=${STUDENTS_PER_PAGE}&page=${page}`
           );
+          if (!response.ok) {
+            throw new Error(`Erro ao buscar dados: ${response.status}`);
+          }
           const data = await response.json();
 
           if (page === 1) {
@@ -67,6 +74,7 @@ const HomeScreen: React.FC = () => {
         }
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
