@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { Student } from './HomeScreen';
 
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalAvatar: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 150,
+    height: 150,
+    borderRadius: 100,
   },
   modalName: {
     fontSize: 20,
@@ -71,16 +71,6 @@ const styles = StyleSheet.create({
   modalInfo: {
     fontSize: 16,
     marginBottom: 5,
-  },
-  closeButton: {
-    marginTop: 20,
-    padding: 10,
-    backgroundColor: '#007AFF',
-    borderRadius: 5,
-  },
-  closeButtonText: {
-    color: '#fff',
-    fontSize: 16,
   },
 });
 
