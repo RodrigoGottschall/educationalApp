@@ -14,6 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import StudentDetailsModal from './StudentDetailsModal';
 import Footer from './Footer';
+import FilterIconButton from './FilterIconButton';
 
 export interface Student {
   picture: { large: string };
@@ -78,19 +79,10 @@ const HomeScreen: React.FC = () => {
   const closeModal = () => {
     setIsModalVisible(false);
   };
-
-  const handleFilterPress = () => {
-    Alert.alert(
-      'Filtrar por Gênero',
-      '',
-      [
-        { text: 'Masculino', onPress: () => setFilter('male') },
-        { text: 'Feminino', onPress: () => setFilter('female') },
-        { text: 'Todos', onPress: () => setFilter('') },
-        { text: 'Cancelar', onPress: () => {}, style: 'cancel' },
-      ],
-      { cancelable: true }
-    );
+  
+  const handleFilterChange = (newFilter: string) => {
+    setFilter(newFilter); // Atualiza o estado do filtro
+    setPage(1); // Reinicia a página para carregar os dados filtrados
   };
 
   const renderItem = ({ item }: { item: Student }) => (
@@ -123,9 +115,7 @@ const HomeScreen: React.FC = () => {
                 <Icon name="user" size={20} color="#758494" />
               </View>
             </View>
-            <TouchableOpacity style={styles.iconButton} onPress={handleFilterPress}>
-              <Icon name="filter" size={30} color="#788796" />
-            </TouchableOpacity>
+            <FilterIconButton onFilterChange={handleFilterChange} />
           </View>
         </View>
 
