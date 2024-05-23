@@ -1,5 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Alert,
+  NativeSyntheticEvent,
+  ImageErrorEventData,
+} from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Student } from "./HomeScreen";
 
@@ -25,31 +34,41 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
     }
   }, [isVisible]);
 
+  const handleError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
+    console.error(
+      "Erro ao carregar imagem do estudante:",
+      error.nativeEvent.error
+    );
+    Alert.alert("Erro", "Ocorreu um erro ao carregar a imagem do estudante.");
+  };
+
   return (
     <Modalize ref={modalizeRef} adjustToContentHeight={true} onClosed={onClose}>
       <View style={styles.contentContainer}>
         <Image
-          source={{ uri: student.picture.large }}
+          source={{ uri: student?.picture.large }}
           style={styles.modalAvatar}
+          onError={handleError}
         />
         <View style={styles.modalContainer}>
           <Text style={styles.modalName}>
-            {student.name.first} {student.name.last}
+            {student?.name.first} {student?.name.last}
           </Text>
-          <Text style={styles.modalInfo}>Email: {student.email}</Text>
-          <Text style={styles.modalInfo}>Gênero: {student.gender}</Text>
+          <Text style={styles.modalInfo}>Email: {student?.email}</Text>
+          <Text style={styles.modalInfo}>Gênero: {student?.gender}</Text>
           <Text style={styles.modalInfo}>
-            Nascimento: {new Date(student.dob.date).toLocaleDateString()}
+            Nascimento:{" "}
+            {student && new Date(student.dob.date).toLocaleDateString()}
           </Text>
-          <Text style={styles.modalInfo}>Telefone: {student.phone}</Text>
-          <Text style={styles.modalInfo}>Nacionalidade: {student.nat}</Text>
+          <Text style={styles.modalInfo}>Telefone: {student?.phone}</Text>
+          <Text style={styles.modalInfo}>Nacionalidade: {student?.nat}</Text>
           <Text style={styles.modalInfo}>
-            Endereço: {student.location.street.name},{" "}
-            {student.location.street.number}, {student.location.city},{" "}
-            {student.location.state} - {student.location.postcode}
+            Endereço: {student?.location.street.name},{" "}
+            {student?.location.street.number}, {student?.location.city},{" "}
+            {student?.location.state} - {student?.location.postcode}
           </Text>
           <Text style={styles.modalInfo}>
-            ID: {student.id.name} {student.id.value}
+            ID: {student?.id.name} {student?.id.value}
           </Text>
         </View>
       </View>
