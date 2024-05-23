@@ -1,13 +1,23 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
 const Footer: React.FC = () => {
+  const handleIconError = (error: Error) => {
+    console.error("Erro ao carregar o ícone:", error);
+    Alert.alert("Erro", "Não foi possível carregar o ícone.");
+  };
+
   return (
     <View style={styles.footer}>
-      <TouchableOpacity style={styles.iconButton}>
-        <Icon name="fort-awesome" size={24} color="#4a5d6b" />
-      </TouchableOpacity>
+      <View style={styles.iconButton}>
+        <Icon
+          name="fort-awesome"
+          size={24}
+          color="#4a5d6b"
+          onError={handleIconError}
+        />
+      </View>
     </View>
   );
 };
@@ -24,10 +34,6 @@ const styles = StyleSheet.create({
   },
   iconButton: {
     alignItems: "center",
-  },
-  iconText: {
-    fontSize: 12,
-    marginTop: 5,
   },
 });
 
