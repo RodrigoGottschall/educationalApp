@@ -81,8 +81,8 @@ const HomeScreen: React.FC = () => {
   };
   
   const handleFilterChange = (newFilter: string) => {
-    setFilter(newFilter); // Atualiza o estado do filtro
-    setPage(1); // Reinicia a página para carregar os dados filtrados
+    setFilter(newFilter);
+    setPage(1); 
   };
 
   const renderItem = ({ item }: { item: Student }) => (
