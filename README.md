@@ -9,7 +9,7 @@ npm: https://www.npmjs.com/
     ou
 yarn: https://yarnpkg.com/
 
-*Particularmente, utilizo o yarn para facilitar as execuções e instalações das dependências.
+*Particularmente, utilizo o yarn para facilitar as execuções e instalação das dependências.
 
 Android Studio ou Xcode: Se você quiser executar o aplicativo em um emulador ou simulador, instale o Android Studio (para Android) ou o Xcode (para iOS).
 
