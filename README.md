@@ -3,14 +3,13 @@
 **Pré-requisitos:**
 
 Node.js e npm (ou yarn): Certifique-se de ter o Node.js e o npm (ou yarn) instalados em sua máquina. Você pode baixá-los em:
-
 Node.js: https://nodejs.org/
     
 npm: https://www.npmjs.com/
-    
+    ou
 yarn: https://yarnpkg.com/
 
-Particularmente, utilizo o yarn para facilitar as execuções e instalações das dependências.
+*Particularmente, utilizo o yarn para facilitar as execuções e instalações das dependências.
 
 Android Studio ou Xcode: Se você quiser executar o aplicativo em um emulador ou simulador, instale o Android Studio (para Android) ou o Xcode (para iOS).
 
