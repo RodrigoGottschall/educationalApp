@@ -12,34 +12,24 @@ Android Studio ou Xcode: Se você quiser executar o aplicativo em um emulador ou
 Passos para rodar o projeto:
 
 1. Clonar o repositório:
-
 ````git clone https://github.com/RodrigoGottschall/educationalApp````
 
 2. Instalar as dependências:
-
 ````cd seu-repositorio````
 ````npm install````
-
 ou
-
 ````cd seu-repositorio````
 ````yarn install````
 
 3. Executar o projeto:
 - Android:
-
 ````npx react-native run-android````
-
 ou
-
 ````yarn android````
 
 - iOS:
-
 ````npx react-native run-android````
-
 ou
-
 ````yarn ios````
 
 
