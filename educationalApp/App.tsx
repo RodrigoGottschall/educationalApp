@@ -3,6 +3,7 @@ import { View, Image } from "react-native";
 import LoadingScreen from "./components/LoadingScreen";
 import HomeScreen from "./components/HomeScreen";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { StudentContextProvider } from "./StudentContext";
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,15 +15,17 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={{ flex: 1 }}>
-        {isLoading ? (
-          <LoadingScreen logoSource={require("./assets/logo.png")} />
-        ) : (
-          <HomeScreen />
-        )}
-      </View>
-    </GestureHandlerRootView>
+    <StudentContextProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+          {isLoading ? (
+            <LoadingScreen logoSource={require("./assets/logo.png")} />
+          ) : (
+            <HomeScreen />
+          )}
+        </View>
+      </GestureHandlerRootView>
+    </StudentContextProvider>
   );
 };
 

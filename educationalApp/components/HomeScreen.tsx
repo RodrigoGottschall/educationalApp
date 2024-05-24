@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import {
   View,
   Text,
@@ -15,73 +15,16 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import StudentDetailsModal from "./StudentDetailsModal";
 import Footer from "./Footer";
 import FilterIconButton from "./FilterIconButton";
-
-export interface Student {
-  picture: { large: string };
-  name: { first: string; last: string };
-  gender: string;
-  dob: { date: string };
-  email: string;
-  phone: string;
-  nat: string;
-  location: {
-    street: { name: string; number: number };
-    city: string;
-    state: string;
-    postcode: string;
-  };
-  id: { name: string; value: string };
-}
+import { Student, StudentContext } from "../StudentContext";
 
 const STUDENTS_PER_PAGE = 20;
 
 const HomeScreen: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { students, isLoading, filter, page, error, setFilter, setPage } =
+    useContext(StudentContext);
   const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("");
-  const [page, setPage] = useState(1);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchStudents = async () => {
-      setIsLoading(true);
-
-      try {
-        const cachedStudents = await AsyncStorage.getItem("students");
-        if (cachedStudents && page === 1) {
-          setStudents(JSON.parse(cachedStudents));
-        } else {
-          const response = await fetch(
-            `https://randomuser.me/api/?results=${STUDENTS_PER_PAGE}&page=${page}`
-          );
-          if (!response.ok) {
-            throw new Error(`Erro ao buscar dados: ${response.status}`);
-          }
-          const data = await response.json();
-
-          if (page === 1) {
-            await AsyncStorage.setItem(
-              "students",
-              JSON.stringify(data.results)
-            );
-            setStudents(data.results);
-          } else {
-            setStudents((prevStudents) => [...prevStudents, ...data.results]);
-          }
-        }
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchStudents();
-  }, [page]);
 
   const filteredStudents = students.filter((student) => {
     const fullName = `${student.name.first} ${student.name.last}`.toLowerCase();
@@ -92,7 +35,7 @@ const HomeScreen: React.FC = () => {
   });
 
   const handleEndReached = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage(page + 1);
   };
 
   const numColumns = 1;
