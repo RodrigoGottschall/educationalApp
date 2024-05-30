@@ -8,6 +8,7 @@ import { StudentContextProvider } from "./StudentContext";
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  // Simula o carregamento da tela
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
