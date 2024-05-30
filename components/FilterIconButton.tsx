@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, View, Alert } from "react-native"; // Removemos o Text, que não está sendo usado
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Alert,
+  NativeSyntheticEvent,
+  ImageErrorEventData,
+} from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 
@@ -22,7 +29,9 @@ const FilterIconButton: React.FC<FilterIconButtonProps> = ({
     hideMenu();
   };
 
-  const handleIconError = (error: Error) => {
+  const handleIconError = (
+    error: NativeSyntheticEvent<ImageErrorEventData>
+  ) => {
     console.error("Erro ao carregar o ícone:", error);
     Alert.alert("Erro", "Não foi possível carregar o ícone de filtro.");
   };
