@@ -18,6 +18,7 @@ export interface Student {
   id: { name: string; value: string };
 }
 
+// Define o contexto e os tipos
 interface StudentContextType {
   students: Student[];
   isLoading: boolean;
@@ -29,6 +30,7 @@ interface StudentContextType {
   setError: (error: string | null) => void;
 }
 
+// Cria o contexto
 export const StudentContext = createContext<StudentContextType>({
   students: [],
   isLoading: false,
@@ -40,10 +42,12 @@ export const StudentContext = createContext<StudentContextType>({
   setError: () => {},
 });
 
+// Define o tipo do componente
 interface StudentContextProviderProps {
   children: React.ReactNode;
 }
 
+// Define o número de alunos por página
 const STUDENTS_PER_PAGE = 20;
 
 export const StudentContextProvider: React.FunctionComponent<
@@ -55,6 +59,7 @@ export const StudentContextProvider: React.FunctionComponent<
   const [page, setPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
 
+  // Buscar os alunos da API
   useEffect(() => {
     const fetchStudents = async () => {
       setIsLoading(true);
@@ -72,6 +77,7 @@ export const StudentContextProvider: React.FunctionComponent<
           }
           const data = await response.json();
 
+          // Salvar os alunos no AsyncStorage
           if (page === 1) {
             await AsyncStorage.setItem(
               "students",
@@ -91,7 +97,7 @@ export const StudentContextProvider: React.FunctionComponent<
     };
 
     fetchStudents();
-  }, [page, filter]); // Fetch on page or filter change
+  }, [page, filter]); // Atualizar apenas quando a página ou o filtro mudar
 
   return (
     <StudentContext.Provider
