@@ -9,11 +9,14 @@ import {
   ImageErrorEventData,
 } from "react-native";
 
+// Define a interface para o componente LoadingScreen
 interface LoadingScreenProps {
   logoSource: { uri: string };
 }
 
+// Define o componente LoadingScreen
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
+  // Função para lidar com erros ao carregar o logo
   const handleImageError = (
     error: NativeSyntheticEvent<ImageErrorEventData>
   ) => {

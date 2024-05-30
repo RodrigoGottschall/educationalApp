@@ -10,25 +10,30 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 
+// Define a interface para os ícones de filtro
 interface FilterIconButtonProps {
   onFilterChange: (filter: string) => void;
 }
 
+// Define o componente FilterIconButton
 const FilterIconButton: React.FC<FilterIconButtonProps> = ({
   onFilterChange,
 }) => {
   const [filter, setFilter] = useState<string>("");
   const [visible, setVisible] = useState<boolean>(false);
 
+  // Funções para controlar a visibilidade do menu
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
 
+  // Função para lidar com o filtro selecionado
   const handleFilterSelect = (filter: string) => {
     setFilter(filter);
     onFilterChange(filter);
     hideMenu();
   };
 
+  // Função para lidar com erros ao carregar o ícone de filtro
   const handleIconError = (
     error: NativeSyntheticEvent<ImageErrorEventData>
   ) => {

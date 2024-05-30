@@ -19,6 +19,7 @@ import { Student, StudentContext } from "../StudentContext";
 
 const STUDENTS_PER_PAGE = 20;
 
+// Define o componente HomeScreen como uma função React
 const HomeScreen: React.FC = () => {
   const { students, isLoading, filter, page, error, setFilter, setPage } =
     useContext(StudentContext);
@@ -26,6 +27,7 @@ const HomeScreen: React.FC = () => {
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  // Função para buscar os alunos
   const filteredStudents = students.filter((student) => {
     const fullName = `${student.name.first} ${student.name.last}`.toLowerCase();
     return (
@@ -34,28 +36,36 @@ const HomeScreen: React.FC = () => {
     );
   });
 
+  // Função para lidar com o fim da lista
   const handleEndReached = () => {
     setPage(page + 1);
   };
 
+  // Define o número de colunas
   const numColumns = 1;
+  // Define o tamanho da tela
   const { width } = Dimensions.get("window");
+  // Define o tamanho do card
   const cardWidth = (width - 40 - 10) / numColumns;
 
+  // Função para lidar com o clique no card
   const handleCardPress = (student: Student) => {
     setSelectedStudent(student);
     setIsModalVisible(true);
   };
 
+  // Função para fechar o modal
   const closeModal = () => {
     setIsModalVisible(false);
   };
 
+  // Função para lidar com o filtro
   const handleFilterChange = (newFilter: string) => {
     setFilter(newFilter);
     setPage(1);
   };
 
+  // Função para salvar o filtro no AsyncStorage
   const renderItem = ({ item }: { item: Student }) => (
     <TouchableOpacity
       onPress={() => handleCardPress(item)}

@@ -2,11 +2,13 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
+// Define a interface FooterProps
 interface FooterProps {
   iconColor?: string;
   iconSize?: number;
 }
 
+// Define o componente Footer
 const Footer: React.FC<FooterProps> = ({
   iconColor = "#4a5d6b",
   iconSize = 24,
