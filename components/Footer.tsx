@@ -8,13 +8,16 @@ const Footer: React.FC = () => {
     Alert.alert("Erro", "Não foi possível carregar o ícone.");
   };
 
+  const iconColor = "#4a5d6b";
+  const iconSize = 24;
+
   return (
     <View style={styles.footer}>
       <View style={styles.iconButton}>
         <Icon
           name="fort-awesome"
-          size={24}
-          color="#4a5d6b"
+          size={iconSize}
+          color={iconColor}
           onError={handleIconError}
         />
       </View>
