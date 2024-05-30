@@ -4,13 +4,12 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity,
   Alert,
   NativeSyntheticEvent,
   ImageErrorEventData,
 } from "react-native";
+import { Student } from "../StudentContext";
 import { Modalize } from "react-native-modalize";
-import { Student } from "./HomeScreen";
 
 interface StudentDetailsModalProps {
   student: Student | null;
