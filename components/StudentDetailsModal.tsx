@@ -11,20 +11,24 @@ import {
 import { Student } from "../StudentContext";
 import { Modalize } from "react-native-modalize";
 
+// Define a interface para as propriedades do componente StudentDetailsModal
 interface StudentDetailsModalProps {
   student: Student | null;
   isVisible: boolean;
   onClose: () => void;
 }
 
+// Define o componente StudentDetailsModal
 const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
   student,
   isVisible,
   onClose,
 }) => {
   if (!student) return null;
+  // Referência para o componente Modalize
   const modalizeRef = useRef<Modalize>(null);
 
+  // Verifica se a modal deve ser aberta ou fechada
   useEffect(() => {
     if (isVisible) {
       modalizeRef.current?.open();
@@ -33,6 +37,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
     }
   }, [isVisible]);
 
+  // Função para lidar com erros ao carregar a imagem do estudante
   const handleError = (error: NativeSyntheticEvent<ImageErrorEventData>) => {
     console.error(
       "Erro ao carregar imagem do estudante:",
@@ -41,6 +46,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
     Alert.alert("Erro", "Ocorreu um erro ao carregar a imagem do estudante.");
   };
 
+  // Retorna o componente Modalize
   return (
     <Modalize ref={modalizeRef} adjustToContentHeight={true} onClosed={onClose}>
       <View style={styles.contentContainer}>
@@ -75,6 +81,7 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
   );
 };
 
+// Estilos para o componente StudentDetailsModal
 const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 50,
