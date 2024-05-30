@@ -2,14 +2,19 @@ import React from "react";
 import { View, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  iconColor?: string;
+  iconSize?: number;
+}
+
+const Footer: React.FC<FooterProps> = ({
+  iconColor = "#4a5d6b",
+  iconSize = 24,
+}) => {
   const handleIconError = (error: Error) => {
     console.error("Erro ao carregar o ícone:", error);
     Alert.alert("Erro", "Não foi possível carregar o ícone.");
   };
-
-  const iconColor = "#4a5d6b";
-  const iconSize = 24;
 
   return (
     <View style={styles.footer}>
