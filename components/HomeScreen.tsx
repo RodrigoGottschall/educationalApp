@@ -10,7 +10,6 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/FontAwesome";
 import StudentDetailsModal from "./StudentDetailsModal";
 import Footer from "./Footer";
@@ -65,7 +64,7 @@ const HomeScreen: React.FC = () => {
     setPage(1);
   };
 
-  // Função para salvar o filtro no AsyncStorage
+  // Função que renderiza os cards
   const renderItem = ({ item }: { item: Student }) => (
     <TouchableOpacity
       onPress={() => handleCardPress(item)}
