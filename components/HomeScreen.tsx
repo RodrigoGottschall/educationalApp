@@ -18,7 +18,7 @@ import { Student, StudentContext } from "../StudentContext";
 
 // Define o componente HomeScreen como uma função React
 const HomeScreen: React.FC = () => {
-  const { students, isLoading, filter, page, error, setFilter, setPage } =
+  const { students, isLoading, filter, page, setFilter, setPage } =
     useContext(StudentContext);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
