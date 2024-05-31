@@ -81,7 +81,6 @@ const StudentDetailsModal: React.FC<StudentDetailsModalProps> = ({
   );
 };
 
-// Estilos para o componente StudentDetailsModal
 const styles = StyleSheet.create({
   contentContainer: {
     paddingTop: 50,

@@ -16,8 +16,6 @@ import Footer from "./Footer";
 import FilterIconButton from "./FilterIconButton";
 import { Student, StudentContext } from "../StudentContext";
 
-const STUDENTS_PER_PAGE = 20;
-
 // Define o componente HomeScreen como uma função React
 const HomeScreen: React.FC = () => {
   const { students, isLoading, filter, page, error, setFilter, setPage } =
