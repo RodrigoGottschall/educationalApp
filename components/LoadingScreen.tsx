@@ -3,20 +3,17 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
-  Image,
+  ImageBackground,
   Alert,
   NativeSyntheticEvent,
   ImageErrorEventData,
 } from "react-native";
 
-// Define a interface para o componente LoadingScreen
 interface LoadingScreenProps {
   logoSource: { uri: string };
 }
 
-// Define o componente LoadingScreen
 const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
-  // Função para lidar com erros ao carregar o logo
   const handleImageError = (
     error: NativeSyntheticEvent<ImageErrorEventData>
   ) => {
@@ -26,12 +23,16 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
 
   return (
     <View style={styles.container}>
-      <Image
+      <ImageBackground
         source={logoSource}
-        style={styles.logo}
+        style={styles.imageBackground}
         onError={handleImageError}
-      />
-      <ActivityIndicator size="large" color="#758494" />
+        resizeMode="cover" // Cobre a tela inteira, ajustando a imagem
+      >
+        <View style={styles.activityIndicatorContainer}>
+          <ActivityIndicator size="large" color="#fff" />
+        </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -39,14 +40,15 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  imageBackground: {
+    flex: 1, // Ocupa a tela inteira
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff",
   },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+  activityIndicatorContainer: {
+    // Garante que o indicador fique centralizado
+    position: "absolute",
   },
 });
 
