@@ -13,7 +13,7 @@ interface LoadingScreenProps {
   logoSource: { uri: string };
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
+export const LoadingScreen: React.FC<LoadingScreenProps> = ({ logoSource }) => {
   const handleImageError = (
     error: NativeSyntheticEvent<ImageErrorEventData>
   ) => {
