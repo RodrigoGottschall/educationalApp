@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   FlatList,
   Image,
@@ -10,59 +9,34 @@ import {
   TouchableOpacity,
   Dimensions,
 } from "react-native";
-import Icon from "react-native-vector-icons/FontAwesome";
 import StudentDetailsModal from "./StudentDetailsModal";
 import Footer from "./Footer";
-import FilterIconButton from "./FilterIconButton";
 import { Student, StudentContext } from "../StudentContext";
 
-// Define o componente HomeScreen como uma função React
 const HomeScreen: React.FC = () => {
-  const { students, isLoading, filter, page, setFilter, setPage } =
-    useContext(StudentContext);
-  const [searchQuery, setSearchQuery] = useState("");
+  const { students, isLoading, page, setPage } = useContext(StudentContext);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // Função para buscar os alunos
-  const filteredStudents = students.filter((student) => {
-    const fullName = `${student.name.first} ${student.name.last}`.toLowerCase();
-    return (
-      fullName.includes(searchQuery.toLowerCase()) &&
-      (!filter || student.gender === filter)
-    );
-  });
-
-  // Função para lidar com o fim da lista
   const handleEndReached = () => {
     setPage(page + 1);
   };
 
-  // Define o número de colunas
   const numColumns = 1;
-  // Define o tamanho da tela
+
   const { width } = Dimensions.get("window");
-  // Define o tamanho do card
+
   const cardWidth = (width - 40 - 10) / numColumns;
 
-  // Função para lidar com o clique no card
   const handleCardPress = (student: Student) => {
     setSelectedStudent(student);
     setIsModalVisible(true);
   };
 
-  // Função para fechar o modal
   const closeModal = () => {
     setIsModalVisible(false);
   };
 
-  // Função para lidar com o filtro
-  const handleFilterChange = (newFilter: string) => {
-    setFilter(newFilter);
-    setPage(1);
-  };
-
-  // Função que renderiza os cards
   const renderItem = ({ item }: { item: Student }) => (
     <TouchableOpacity
       onPress={() => handleCardPress(item)}
@@ -87,20 +61,17 @@ const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>InnovateTech</Text>
-        <View style={styles.searchContainerOuter}>
-          <View style={styles.searchContainer}>
-            <TextInput
-              style={styles.searchInput}
-              placeholder="Busca..."
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-            />
-            <View style={styles.searchIconContainer}>
-              <Icon name="user" size={20} color="#758494" />
-            </View>
-          </View>
-          <FilterIconButton onFilterChange={handleFilterChange} />
+        <Text style={styles.title}>LO Personal</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <Text style={styles.buttonText}>Agenda</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <Text style={styles.buttonText}>Vídeos</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => {}}>
+            <Text style={styles.buttonText}>Links</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -111,7 +82,7 @@ const HomeScreen: React.FC = () => {
       ) : (
         <FlatList
           key={numColumns.toString()}
-          data={filteredStudents}
+          data={students}
           numColumns={numColumns}
           keyExtractor={(item) => item.dob.date}
           contentContainerStyle={styles.cardList}
@@ -128,7 +99,6 @@ const HomeScreen: React.FC = () => {
           }
         />
       )}
-
       <StudentDetailsModal
         student={selectedStudent}
         isVisible={isModalVisible}
@@ -139,17 +109,18 @@ const HomeScreen: React.FC = () => {
   );
 };
 
+// Estilos da tela
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
   },
   header: {
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     padding: 20,
     paddingTop: 50,
     borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    borderBottomColor: "#13f8c4",
   },
   title: {
     fontSize: 24,
@@ -157,6 +128,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     textAlign: "center",
+    color: "white",
   },
   searchContainer: {
     flexDirection: "row",
@@ -198,7 +170,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginHorizontal: 5,
     marginBottom: 10,
-    backgroundColor: "#fff",
+    backgroundColor: "white",
     borderRadius: 10,
     padding: 15,
     shadowColor: "#000",
@@ -240,6 +212,24 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 12,
     color: "#666",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+  },
+  button: {
+    borderColor: "#13f8c4",
+    borderWidth: 2,
+    backgroundColor: "#000",
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });
 

@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 15,
     borderTopWidth: 1,
-    borderTopColor: "#fff",
+    borderTopColor: "#13f8c4",
     backgroundColor: "#000",
   },
   errorContainer: {
