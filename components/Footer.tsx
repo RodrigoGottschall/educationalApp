@@ -50,7 +50,6 @@ const Footer: React.FC<FooterProps> = ({
 const styles = StyleSheet.create({
   footer: {
     alignItems: "center",
-    padding: 15,
     borderTopWidth: 1,
     borderTopColor: "#13f8c4",
     backgroundColor: "#000",
